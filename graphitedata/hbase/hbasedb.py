@@ -157,8 +157,15 @@ class HbaseTSDB(TSDB):
                                       [Mutation(column="cf:c_" + part, value=metricKey)], None)
 
 
-    # points is a list of (timestamp,value) points
-    def update_many(self, metric, points):
+    def update_many(self, metric, points, retention_config):
+        """Update many datapoints.
+
+        Keyword arguments:
+        points  -- Is a list of (timestamp,value) points
+	retention_config -- Is silently ignored
+
+        """
+
         info = self.info(metric)
         now = int(time.time())
         archives = iter(info['archives'])

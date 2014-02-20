@@ -49,7 +49,8 @@ class WhisperTSDB(TSDB):
             print("Error creating dir " + dbDir + " : " + e)
         return whisper.create(dbFilePath, archiveConfig, xFilesFactor, aggregationMethod, sparse, useFallocate)
 
-    def update_many(self, metric, datapoints):
+    def update_many(self, metric, datapoints, retention_config):
+	''' Update datapoints but quietly ignore the retention_config '''
         return whisper.update_many(self.getFilesystemPath(metric), datapoints)
 
     def exists(self, metric):
